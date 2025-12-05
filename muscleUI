@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <title>今日の筋トレ</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      font-family: system-ui, -apple-system, sans-serif;
+      background: #0f172a;
+      color: #f9fafb;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .card {
+      max-width: 480px;
+      padding: 24px 20px;
+      border-radius: 16px;
+      background: rgba(15,23,42,0.9);
+      box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+    }
+    .date { font-size: 14px; opacity: 0.7; margin-bottom: 8px; }
+    .title { font-size: 20px; font-weight: 700; margin-bottom: 12px; }
+    .menu { white-space: pre-line; font-size: 16px; line-height: 1.6; }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <div class="date" id="date"></div>
+    <div class="title">今日のメニュー</div>
+    <div class="menu" id="menu">読み込み中...</div>
+  </div>
+
+  <script>
+    (async () => {
+      const userId = 'TEST_USER'; // 後でLINEのIDに差し替え
+      const res = await fetch(
+        'https://lumicreate.xvps.jp/webhook/workout/start?user_id=' + encodeURIComponent(userId)
+      );
+      const data = await res.json();
+      document.getElementById('date').textContent = data.date;
+      document.getElementById('menu').textContent = data.menu;
+    })();
+  </script>
+</body>
+</html>
